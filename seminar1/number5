@@ -1,0 +1,44 @@
+#include <iostream>
+#include <cmath>
+using namespace std;
+void P(double x,double y,double z,double t,double p){
+	const int V=270;
+	const double ro=1.293;
+	const double g=9.81;
+	double L = y*V*V*2*ro*t/2;
+	std::cout << "Подъёмная сила:"<<L<<" H\n";
+	double LL=y*V*V*2*ro*p/2;
+	std::cout<<"Аэродинамическое сопротивление:"<<LL<<" H\n";
+	double a = (z-LL)/x;
+	std::cout << "Ускорение по направлению движения:"<<a<<" м/с^2\n";
+}
+double T(double x,double y,double z,double t,double p){
+	const int V=270;
+	const double ro=1.293;
+	const double g=9.81;
+	double L = y*V*V*2*ro*t/2;
+	double LL=y*V*V*2*ro*p/2;
+	double a = (z-LL)/x;
+	return a;
+}
+int main() {
+	double pl1[5]={1000,500,700,0.033,0.5};
+	double pl2[5]={2000,250,1400,0.033,0.7};
+	double pl3[5]={4000,1900,800,0.04,0.9};
+	cout << "Первый самолет:\n";
+	P(pl1[0],pl1[1],pl1[2],pl1[3],pl1[4]);
+	cout << "Второй самолет:\n";
+	P(pl2[0],pl2[1],pl2[2],pl2[3],pl2[4]);
+	cout << "Третий самолет:\n";
+	P(pl3[0],pl3[1],pl3[2],pl3[3],pl3[4]);
+	double h;
+	cout << "Введите высоту (м):";
+	cin>>h;
+	if ((T(pl1[0],pl1[1],pl1[2],pl1[3],pl1[4])>T(pl2[0],pl2[1],pl2[2],pl2[3],pl2[4])) && (T(pl1[0],pl1[1],pl1[2],pl1[3],pl1[4])>T(pl3[0],pl3[1],pl3[2],pl3[3],pl3[4]))){
+		cout << "Первый самолет быстрее наберет высоту "<<h<< "м"<<endl;
+	}else if((T(pl1[0],pl1[1],pl1[2],pl1[3],pl1[4])<T(pl2[0],pl2[1],pl2[2],pl2[3],pl2[4])) && (T(pl2[0],pl2[1],pl2[2],pl2[3],pl2[4])>T(pl3[0],pl3[1],pl3[2],pl3[3],pl3[4]))){
+		cout << "Второй самолет быстрее наберет высоту "<<h<< "м"<<endl;
+	}else{cout << "Третий самолет быстрее наберет высоту "<<h<< "м"<<endl;}
+
+	return 0;
+}
