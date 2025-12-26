@@ -1,0 +1,59 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+struct Aircraft {
+    double mass;
+    double thrust;
+    double lift_coeff;
+    double drag_coeff;
+};
+
+// Функция сравнения для сортировки по времени набора высоты
+bool compareByTime(const std::pair<double, int>& a, const std::pair<double, int>& b) {
+    return a.first < b.first;
+}
+
+void calculateFlightTimes(const std::vector<Aircraft>& aircrafts, double height) {
+    std::vector<std::pair<double, int>> results; // Пара: время набора высоты, индекс самолёта
+
+    for(int i = 0; i < aircrafts.size(); ++i) {
+        // Расчет вертикального ускорения
+        double acceleration = (aircrafts[i].thrust / aircrafts[i].mass) - aircrafts[i].drag_coeff;
+
+        if(acceleration <= 0) { // Если самолёт не способен набрать высоту
+            continue;
+        }
+
+        // Расчёт времени набора высоты
+        double time_to_height = sqrt((2 * height) / acceleration);
+
+        // Добавляем результат
+        results.push_back({time_to_height, i});
+    }
+
+    // Сортируем результаты по времени набора высоты
+    std::sort(results.begin(), results.end(), compareByTime);
+
+    // Печать результата
+    std::cout << "Время набора высоты (секунды):\\n";
+    for(auto& result : results) {
+        std::cout << "Самолет №" << result.second + 1 << ": "
+                  << result.first << " секунд\\n";
+    }
+}
+
+int main() {
+    std::vector<Aircraft> planes = {
+        {100000, 200000, 1.2, 0.8},
+        {150000, 250000, 1.1, 0.7},
+        {120000, 220000, 1.3, 0.9},
+        {180000, 300000, 1.0, 0.6}
+    };
+
+    double Height = 10000;
+
+    calculateFlightTimes(planes, Height);
+
+    return 0;
+}
