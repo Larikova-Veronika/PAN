@@ -1,0 +1,21 @@
+#include <vector>
+#include <iostream>
+#include <iomanip>
+#include <numeric>
+
+using namespace std;
+
+int main() {
+	std::vector<double> times, velocities;
+		const double v0 = 50.0, g = 9.8, dt = 1.0;
+		double v;
+		for (double t = 0.0; t <= v0/g; t += dt){
+			v = v0 - g * t;
+		    times.push_back(t);
+		    velocities.push_back(v); }
+		if(velocities.empty()== true) cout <<"Данных нет"<<endl;
+		double sum = std::accumulate(velocities.begin(), velocities.end(),0.0);
+		double avg = sum / velocities.size();
+		std::cout <<  std::fixed <<"Cредняя скорость: " << std::setprecision(2) << avg << " м/с" << std::endl;
+	return 0;
+}
