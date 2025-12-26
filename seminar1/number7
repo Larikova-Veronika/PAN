@@ -1,0 +1,23 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	const double g=9.81;
+	double T,D,L;
+	cout << "Введите тягу двигателя (Н):";
+	cin>>T;
+	cout << "Введите подъемную силу (Н):";
+	cin>>L;
+	cout << "Введите сопротивление (Н):";
+	cin>>D;
+	double m=(L-T+D)/g;
+	double a = (T-D)/m;
+	if (a>0.5){
+		cout <<"Самолет в режиме набора высоты";
+	}else if(a<0){
+		cout <<"Самолет в режиме снижения";
+	}else{
+		cout <<"Самолет в режиме горизонтального полета";
+	}
+	return 0;
+}
