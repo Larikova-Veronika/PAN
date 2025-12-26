@@ -1,0 +1,20 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	const double g=9.81;
+	double T,D,m,L;
+		cout << "Введите тягу двигателя (Н):";
+		cin>>T;
+		cout << "Введите подъемную силу (Н):";
+		cin>>L;
+		cout << "Введите сопротивление (Н):";
+		cin>>D;
+		cout << "Введите массу самолета (кг):";
+		cin>>m;
+		double a = (T-D)/m;
+			cout << "Ускорение по направлению движения:"<<a<<" м/с^2\n";
+		double ay = (L-m*g)/m;
+			cout << "Вертикальное ускорение:"<<ay<<" м/с^2"<< endl;
+		return 0;
+}
